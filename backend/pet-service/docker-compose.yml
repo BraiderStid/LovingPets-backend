@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: 'postgres:16'
+    restart: unless-stopped
+    environment:
+      - 'POSTGRES_DB=loving_pets_db'
+      - 'POSTGRES_USER=pet_service'
+      - 'POSTGRES_PASSWORD=pet_service_pass'
+    ports:
+      - '5433:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+    driver: local
