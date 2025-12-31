@@ -2,6 +2,6 @@ package com.lovingpets.auth_service.domain.model;
 
 public enum RoleName {
     ROLE_ADMIN,
-    ROLE_EMPLEADO,
-    ROLE_CLIENTE
+    ROLE_EMPLOYEE,
+    ROLE_CLIENT,
 }

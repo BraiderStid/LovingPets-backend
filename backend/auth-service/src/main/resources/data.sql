@@ -4,8 +4,8 @@
 INSERT INTO roles (id, name)
 VALUES
 (1, 'ROLE_ADMIN'),
-(2, 'ROLE_CLIENTE'),
-(3, 'ROLE_EMPLEADO')
+(2, 'ROLE_CLIENT'),
+(3, 'ROLE_EMPLOYEE')
 ON CONFLICT (id) DO NOTHING;
 
 -- =========================
