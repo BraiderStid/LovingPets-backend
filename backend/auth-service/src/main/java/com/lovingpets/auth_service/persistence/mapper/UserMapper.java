@@ -1,15 +1,12 @@
 package com.lovingpets.auth_service.persistence.mapper;
 
+import com.lovingpets.auth_service.domain.dto.AdminCreateUserRequest;
 import com.lovingpets.auth_service.domain.dto.CustomerRegisterRequest;
-import com.lovingpets.auth_service.domain.dto.UpdateUserRequest;
 import com.lovingpets.auth_service.domain.dto.UserResponse;
 import com.lovingpets.auth_service.persistence.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -44,22 +41,15 @@ public interface UserMapper {
     default UserEntity fromCustomerRegisterRequest(CustomerRegisterRequest dto) {
         return UserEntity.builder()
                 .email(dto.email())
-                .password(dto.password()) // en producción deberías hashear la contraseña
-                .enabled(true)
-                .createdAt(LocalDateTime.now())
-                .roles(Set.of()) // al crear el usuario todavía no asignamos roles
+                .password(dto.password())
                 .build();
     }
 
-    // Método para actualizar solo los campos que vienen en el DTO
-    default UserEntity updateUserByClient(UserEntity user, UpdateUserRequest dto) {
+    default UserEntity fromAdminCreateUser(AdminCreateUserRequest dto) {
         return UserEntity.builder()
-                .id(user.getId())
-                .email(dto.email() != null ? dto.email() : user.getEmail())
-                .password(dto.password() != null ? dto.password() : user.getPassword()) // luego hashear
-                .enabled(user.isEnabled())
-                .createdAt(user.getCreatedAt())
-                .roles(user.getRoles())
+                .email(dto.email())
+                .password(dto.password())
                 .build();
     }
+
 }

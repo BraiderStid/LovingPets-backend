@@ -1,8 +1,11 @@
 package com.lovingpets.auth_service.domain.service;
 
+import com.lovingpets.auth_service.domain.dto.AdminCreateUserRequest;
 import com.lovingpets.auth_service.domain.dto.CustomerRegisterRequest;
 import com.lovingpets.auth_service.domain.dto.UpdateUserRequest;
 import com.lovingpets.auth_service.domain.dto.UserResponse;
+import com.lovingpets.auth_service.domain.exception.ConflictException;
+import com.lovingpets.auth_service.domain.exception.NotFoundException;
 import com.lovingpets.auth_service.domain.exception.UserNotFoundException;
 import com.lovingpets.auth_service.domain.model.RoleName;
 import com.lovingpets.auth_service.persistence.entity.RoleEntity;
@@ -27,7 +30,10 @@ public class UserService {
     private final UserRoleRepository userRoleRepository;
 
     public UserService(UserRepository userRepository,
-                       UserMapper userMapper, UserRoleRepository userRoleRepository, UserRoleService userRoleService, RoleRepository roleRepository, UserRoleRepository userRoleRepository1) {
+                       UserMapper userMapper, UserRoleRepository userRoleRepository,
+                       UserRoleService userRoleService,
+                       RoleRepository roleRepository,
+                       UserRoleRepository userRoleRepository1) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.roleRepository = roleRepository;
@@ -51,7 +57,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
         if (!user.isEnabled()) {
-            throw new IllegalStateException("User already disabled");
+            throw new ConflictException("User already disabled");
         }
 
         UserEntity updatedUser = userMapper.copyWithEnabled(user, false);
@@ -63,7 +69,7 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
         if (user.isEnabled()) {
-            throw new IllegalStateException("User already enabled");
+            throw new ConflictException("User already enabled");
         }
 
         UserEntity updatedUser = userMapper.copyWithEnabled(user, true);
@@ -71,6 +77,10 @@ public class UserService {
     }
 
     public UserResponse registerCustomer(CustomerRegisterRequest request) {
+
+        if (userRepository.existsByEmail(request.email())) {
+            throw new ConflictException("Email already registered");
+        }
         // Crear usuario desde DTO
         UserEntity user = userMapper.fromCustomerRegisterRequest(request);
 
@@ -79,7 +89,7 @@ public class UserService {
 
         // Asignar ROLE_CLIENTE automáticamente
         RoleEntity clientRole = roleRepository.findByName(RoleName.ROLE_CLIENT)
-                .orElseThrow(() -> new RuntimeException("ROLE_CLIENT not found"));
+                .orElseThrow(() -> new RuntimeException("Role ROLE_CLIENT not found"));
 
         UserRoleEntity userRole = UserRoleEntity.builder()
                 .user(savedUser)
@@ -92,14 +102,47 @@ public class UserService {
         return userMapper.toResponse(savedUser);
     }
 
+    public UserResponse createUserByAdmin(AdminCreateUserRequest request) {
+
+        if (userRepository.existsByEmail(request.email())) {
+            throw new ConflictException("Email already registered");
+        }
+
+        UserEntity user = userMapper.fromAdminCreateUser(request);
+        UserEntity savedUser = userRepository.save(user);
+
+        RoleEntity role = roleRepository.findByName(request.role())
+                .orElseThrow(() -> new NotFoundException("Role not found"));
+
+        UserRoleEntity userRole = UserRoleEntity.builder()
+                .user(savedUser)
+                .role(role)
+                .build();
+
+        userRoleRepository.save(userRole);
+
+        return userMapper.toResponse(savedUser);
+    }
+
     public UserResponse updateUser(Long userId, UpdateUserRequest request) {
+
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
-        // Crear una nueva instancia con los cambios
-        UserEntity updatedUser = userMapper.updateUserByClient(user, request);
+        if (request.email() != null &&
+                userRepository.existsByEmailAndIdNot(request.email(), userId)) {
+            throw new ConflictException("Email already registered");
+        }
 
-        // Guardar la entidad actualizada
+        UserEntity updatedUser = UserEntity.builder()
+                .id(user.getId())
+                .email(request.email() != null ? request.email() : user.getEmail())
+                .password(request.password() != null ? request.password() : user.getPassword())
+                .enabled(user.isEnabled())
+                .createdAt(user.getCreatedAt())
+                .roles(user.getRoles())
+                .build();
+
         UserEntity savedUser = userRepository.save(updatedUser);
 
         return userMapper.toResponse(savedUser);

@@ -1,5 +1,6 @@
 package com.lovingpets.auth_service.web.controller;
 
+import com.lovingpets.auth_service.domain.dto.AdminCreateUserRequest;
 import com.lovingpets.auth_service.domain.dto.CustomerRegisterRequest;
 import com.lovingpets.auth_service.domain.dto.UpdateUserRequest;
 import com.lovingpets.auth_service.domain.dto.UserResponse;
@@ -51,6 +52,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("/admin/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserResponse createUserByAdmin(
+            @RequestBody @Valid AdminCreateUserRequest request) {
+
+        return userService.createUserByAdmin(request);
+    }
+
     @PatchMapping("/me/{id}")
     public ResponseEntity<UserResponse> updateUser(
             @PathVariable Long id,
@@ -59,5 +68,6 @@ public class UserController {
         UserResponse updatedUser = userService.updateUser(id, request);
         return ResponseEntity.ok(updatedUser);
     }
+
 
 }
