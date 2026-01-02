@@ -134,17 +134,29 @@ public class UserService {
             throw new ConflictException("Email already registered");
         }
 
-        UserEntity updatedUser = UserEntity.builder()
-                .id(user.getId())
-                .email(request.email() != null ? request.email() : user.getEmail())
-                .password(request.password() != null ? request.password() : user.getPassword())
-                .enabled(user.isEnabled())
-                .createdAt(user.getCreatedAt())
-                .roles(user.getRoles())
-                .build();
+        if (request.email() != null) {
+            user = UserEntity.builder()
+                    .id(user.getId())
+                    .email(request.email())
+                    .password(user.getPassword())
+                    .enabled(user.isEnabled())
+                    .createdAt(user.getCreatedAt())
+                    .roles(user.getRoles())
+                    .build();
+        }
 
-        UserEntity savedUser = userRepository.save(updatedUser);
+        if (request.password() != null) {
+            user = UserEntity.builder()
+                    .id(user.getId())
+                    .email(user.getEmail())
+                    .password(request.password())
+                    .enabled(user.isEnabled())
+                    .createdAt(user.getCreatedAt())
+                    .roles(user.getRoles())
+                    .build();
+        }
 
+        UserEntity savedUser = userRepository.save(user);
         return userMapper.toResponse(savedUser);
     }
 

@@ -19,17 +19,46 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Web starter
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Security starter
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JWT library
+    implementation("com.auth0:java-jwt:4.5.0")
+
+    // Test starter
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // JUnit launcher
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // JPA starter
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Docker Compose for dev
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+    // PostgreSQL driver
     runtimeOnly 'org.postgresql:postgresql'
+
+    // Lombok library
     compileOnly 'org.projectlombok:lombok'
+
+    // Lombok processor
     annotationProcessor 'org.projectlombok:lombok'
+
+    // MapStruct library
     implementation 'org.mapstruct:mapstruct:1.6.3'
+
+    // MapStruct processor
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+    // Lombok + MapStruct binding
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    // Validation starter
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 

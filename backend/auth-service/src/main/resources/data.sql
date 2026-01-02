@@ -13,12 +13,12 @@ ON CONFLICT (id) DO NOTHING;
 -- =========================
 INSERT INTO users (id, email, password, enabled, created_at)
 VALUES
-(1, 'admin@lovingpets.com', 'admin123', true, now()),
-(2, 'cliente1@lovingpets.com', 'cliente123', true, now()),
-(3, 'cliente2@lovingpets.com', 'cliente123', true, now()),
-(4, 'empleado1@lovingpets.com', 'empleado123', true, now()),
-(5, 'empleado2@lovingpets.com', 'empleado123', true, now()),
-(6, 'cliente3@lovingpets.com', 'cliente123', true, now())
+(1, 'admin@lovingpets.com', '$2y$10$p1BaRBPZ3dKZo82hd9QAVeDVX/Vzp815KKIJaJpz3ILSdiKvXQUiy', true, now()),
+(2, 'cliente1@lovingpets.com', '$2y$10$rPnyrOJe0Xh.fDxvvAUP7OLPCTe4QMVqFiaqCswzsbS.wRAuzzEPq', true, now()),
+(3, 'cliente2@lovingpets.com', '$2y$10$rPnyrOJe0Xh.fDxvvAUP7OLPCTe4QMVqFiaqCswzsbS.wRAuzzEPq', true, now()),
+(4, 'empleado1@lovingpets.com', '$2y$10$lki3R/u8cy0g5kfUMH.XVu2on1DCwvL.FC8LdNYTOZB0Ahn6UZnZu', true, now()),
+(5, 'empleado2@lovingpets.com', '$2y$10$lki3R/u8cy0g5kfUMH.XVu2on1DCwvL.FC8LdNYTOZB0Ahn6UZnZu', true, now()),
+(6, 'cliente3@lovingpets.com', '$2y$10$rPnyrOJe0Xh.fDxvvAUP7OLPCTe4QMVqFiaqCswzsbS.wRAuzzEPq', true, now())
 ON CONFLICT (id) DO NOTHING;
 
 -- =========================
@@ -34,8 +34,3 @@ VALUES
 (5, 3),
 (6, 2)
 ON CONFLICT (user_id, role_id) DO NOTHING;
-
--- =========================
--- RESET SEQUENCES
--- =========================
-ALTER SEQUENCE user_roles_id_seq RESTART WITH 1;
