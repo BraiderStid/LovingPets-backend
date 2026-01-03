@@ -19,33 +19,51 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Spring Web
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    //LangChain4j
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JWT library
+    implementation("com.auth0:java-jwt:4.5.0")
+
+    // Spring Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Boot Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // JUnit Platform Launcher
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // LangChain4j OpenAI Starter
     implementation 'dev.langchain4j:langchain4j-open-ai-spring-boot-starter:1.0.0-beta1'
+
+    // LangChain4j Spring Boot Starter
     implementation 'dev.langchain4j:langchain4j-spring-boot-starter:1.0.0-beta1'
 
+    // Spring Data JPA Test
     testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
+
+    // PostgreSQL Driver
     runtimeOnly 'org.postgresql:postgresql'
 
-    //Lombok
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    //Map Struct
+    // MapStruct
     implementation 'org.mapstruct:mapstruct:1.6.3'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 
-    //Validation
+    // Bean Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // Doc OpenAPI
+    // OpenAPI / Swagger UI
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9'
-
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

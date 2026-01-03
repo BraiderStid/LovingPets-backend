@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+public class WelcomeMessageController {
 
     private final LovingPetsAiService aiService;
 
-    public HelloController(LovingPetsAiService aiService) {
+    public WelcomeMessageController(LovingPetsAiService aiService) {
         this.aiService = aiService;
     }
 
 
-    @GetMapping("/hello")
+    @GetMapping("/welcome")
     public String hello(){
         return this.aiService.generateGreeting();
     }

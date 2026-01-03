@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -13,10 +14,11 @@ public class JwtUtil {
     private static final String SECRET_KEY = "mY$up3rS3cR3tK3yForLovingPets2026!";
     private static final Algorithm ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
 
-    public String create(String email) {
+    public String create(String email, List<String> roles) {
         return JWT.create()
                 .withSubject(email)
                 .withIssuer("loving-pets-auth-service")
+                .withClaim("roles", roles)
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(15)))
                 .sign(ALGORITHM);

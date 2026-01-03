@@ -16,10 +16,10 @@ public enum Breed {
     PERSIAN,
     MAINE_COON,
 
-    // Small animals / birds
-    SYRIAN,        // Hamster Sirio
-    CANARY,        // Canario
-    MINI_REX,      // Conejo Mini Rex
+    // Small animals
+    SYRIAN,
+    CANARY,
+    MINI_REX,
 
     // Generic / fallback
     MIXED,

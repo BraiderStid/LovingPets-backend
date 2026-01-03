@@ -8,6 +8,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AuthService {
 
@@ -29,19 +31,27 @@ public class AuthService {
     }
 
     public AuthResponseDto login(String email, String password) {
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(email, password)
         );
 
         UserEntity user = userSecurityService.getUserEntityByEmail(email);
 
-        String accessToken = jwtUtil.create(email);
+        List<String> roles = user.getRoles()
+                .stream()
+                .map(userRole -> userRole.getRole().getName().name())
+                .toList();
+
+        String accessToken = jwtUtil.create(user.getEmail(), roles);
+
         RefreshTokenEntity refreshToken = refreshTokenService.createRefreshToken(user);
 
         return new AuthResponseDto(accessToken, refreshToken.getToken());
     }
 
     public AuthResponseDto refreshToken(String refreshTokenStr) {
+
         RefreshTokenEntity refreshToken = refreshTokenService
                 .getByToken(refreshTokenStr)
                 .orElseThrow(() -> new RuntimeException("Refresh invalid token"));
@@ -49,7 +59,14 @@ public class AuthService {
         refreshTokenService.verifyExpiration(refreshToken)
                 .orElseThrow(() -> new RuntimeException("Refresh expired token"));
 
-        String newAccessToken = jwtUtil.create(refreshToken.getUser().getEmail());
+        UserEntity user = refreshToken.getUser();
+
+        List<String> roles = user.getRoles()
+                .stream()
+                .map(userRole -> userRole.getRole().getName().name())
+                .toList();
+
+        String newAccessToken = jwtUtil.create(user.getEmail(), roles);
 
         return new AuthResponseDto(newAccessToken, refreshTokenStr);
     }
