@@ -2,7 +2,6 @@ package com.lovingpets.pet_service.config;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,18 +30,14 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Invalid JWT token");
         }
 
-        String email = jwtUtil.getEmail(token);
+        Long userId = jwtUtil.getUserId(token);
         List<String> roles = jwtUtil.getRoles(token);
 
         List<GrantedAuthority> authorities = roles.stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        return new UsernamePasswordAuthenticationToken(
-                email,
-                token,
-                authorities
-        );
+        return new JwtAuthenticationToken(userId, token, authorities);
     }
 
     @Override

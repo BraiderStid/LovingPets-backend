@@ -18,6 +18,10 @@ public class PetService {
         this.petRepository = petRepository;
     }
 
+    public List<PetDto> getByOwnerId(Long ownerId) {
+        return petRepository.getByOwnerId(ownerId);
+    }
+
     public List<PetDto> getAll(){
         return this.petRepository.getAll();
     }
@@ -31,7 +35,7 @@ public class PetService {
         return pet;
     }
 
-    public PetDto save(PetDto petDto){
+    public PetDto save(PetDto petDto, Long userId){
         validatePetData(petDto);
         return this.petRepository.save(petDto);
     }

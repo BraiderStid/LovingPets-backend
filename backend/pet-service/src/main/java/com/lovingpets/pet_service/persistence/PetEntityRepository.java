@@ -33,6 +33,12 @@ public class PetEntityRepository implements PetRepository {
     }
 
     @Override
+    public List<PetDto> getByOwnerId(Long ownerId) {
+        List<PetEntity> pets = crudPetEntity.findByOwnerId(ownerId);
+        return petMapper.toDto(pets);
+    }
+
+    @Override
     public PetDto save(PetDto petDto) {
         PetEntity petEntity = this.petMapper.toEntity(petDto);
         PetEntity savedEntity = this.crudPetEntity.save(petEntity);

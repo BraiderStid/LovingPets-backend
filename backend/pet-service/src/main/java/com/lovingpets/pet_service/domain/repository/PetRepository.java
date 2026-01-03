@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface PetRepository {
     List<PetDto> getAll();
+    List<PetDto> getByOwnerId(Long ownerId);
     PetDto getById(long id);
     PetDto save(PetDto petDto);
     PetDto update(long id, PetUpdateDto petUpdateDto);

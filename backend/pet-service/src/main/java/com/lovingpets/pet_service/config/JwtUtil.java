@@ -40,5 +40,10 @@ public class JwtUtil {
         return decoded.getClaim("roles").asList(String.class);
     }
 
+    public Long getUserId(String jwt) {
+        JWTVerifier verifier = JWT.require(ALGORITHM).build();
+        DecodedJWT decoded = verifier.verify(jwt);
+        return decoded.getClaim("userId").asLong();
+    }
 
 }
