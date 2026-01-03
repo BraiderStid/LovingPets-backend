@@ -1,6 +1,6 @@
-# User Service Microservice
+# Auth Service Microservice - LovingPets
 
-This microservice manages user accounts, including registration, retrieval, updates, and activation/deactivation. It also supports login and JWT refresh functionality.
+This microservice is responsible for user authentication, user management, and JWT token generation for the LovingPets platform.
 
 ## Features
 
@@ -10,19 +10,23 @@ This microservice manages user accounts, including registration, retrieval, upda
 - Enable or disable users
 - Login and JWT token refresh
 
+## Responsibility
+
+This service acts as the authentication authority.
+Other microservices trust the JWT tokens issued by this service
+to authorize protected endpoints.
+
 ## API Endpoints
 
-| Method | Path              | Description              |
-| ------ | ----------------- | ------------------------ |
-| GET    | `/`               | Get all users            |
-| GET    | `/{id}`           | Get user by ID           |
-| PATCH  | `/{id}/disable`   | Disable a user           |
-| PATCH  | `/{id}/enable`    | Enable a user            |
-| POST   | `/register`       | Register a new customer  |
-| POST   | `/admin/register` | Admin creates a new user |
-| PATCH  | `/me/{id}`        | Update user information  |
-| POST   | `/auth/login`     | Login user (JWT)         |
-| POST   | `/auth/refresh`   | Refresh JWT token        |
+| Method | Endpoint        | Description                      | Roles           |
+| ------ | --------------- | -------------------------------- | --------------- |
+| POST   | /auth/login     | Authenticate user and return JWT | Public (anyone) |
+| POST   | /auth/refresh   | Refresh JWT token                | Public (anyone) |
+| POST   | /users/register | Register a new user              | Public (anyone) |
+| GET    | /users/{id}     | Retrieve user information by ID  | ADMIN, EMPLOYEE |
+| PATCH  | /users/me       | Update own user information      | ADMIN, EMPLOYEE |
+| GET    | /users          | List all users                   | ADMIN           |
+
 
 ## Technologies
 
@@ -60,9 +64,13 @@ volumes:
 ```
 ## Running the Service
 
-- Start PostgreSQL (e.g., with Docker).
+> Docker is required because PostgreSQL runs in a Docker container.
+> The Spring Boot application runs locally.
 
--  Build and run the Spring Boot application:
-
-- ./mvnw clean install
-- ./mvnw spring-boot:run
+1. Start PostgreSQL using Docker:
+   ```bash
+   docker-compose up -d
+2. Build the application:
+  ./mvnw clean install
+3. Run the service locally:
+  ./mvnw spring-boot:run

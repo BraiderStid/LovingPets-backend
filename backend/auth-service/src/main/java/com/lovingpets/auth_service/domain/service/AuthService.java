@@ -43,7 +43,7 @@ public class AuthService {
                 .map(userRole -> userRole.getRole().getName().name())
                 .toList();
 
-        String accessToken = jwtUtil.create(user.getEmail(), roles);
+        String accessToken = jwtUtil.create(user.getId(), user.getEmail(), roles);
 
         RefreshTokenEntity refreshToken = refreshTokenService.createRefreshToken(user);
 
@@ -66,7 +66,7 @@ public class AuthService {
                 .map(userRole -> userRole.getRole().getName().name())
                 .toList();
 
-        String newAccessToken = jwtUtil.create(user.getEmail(), roles);
+        String newAccessToken = jwtUtil.create(user.getId(), user.getEmail(), roles);
 
         return new AuthResponseDto(newAccessToken, refreshTokenStr);
     }
