@@ -60,7 +60,7 @@ public class UserController {
         return userService.createUserByAdmin(request);
     }
 
-    @PatchMapping("/me/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<UserResponse> updateUser(
             @PathVariable Long id,
             @RequestBody @Valid UpdateUserRequest request) {
