@@ -30,6 +30,7 @@ dependencies {
 
 // Lombok library (compile only) to reduce boilerplate code
     compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
 // Annotation processor required for Lombok code generation
     annotationProcessor 'org.projectlombok:lombok'
@@ -47,7 +48,11 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 
 // PostgreSQL JDBC driver for database connectivity
-    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.postgresql:postgresql'
+
+    //MapStruct
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 
 }
 
