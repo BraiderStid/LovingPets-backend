@@ -4,6 +4,7 @@ import com.lovingpets.user_service.domain.dto.CreateUserProfileRequest;
 import com.lovingpets.user_service.domain.dto.UpdateUserRequest;
 import com.lovingpets.user_service.domain.dto.UserDto;
 import com.lovingpets.user_service.domain.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<UserDto> updateUser(
             @PathVariable Long id,
-            @RequestBody UpdateUserRequest request
+            @Valid @RequestBody UpdateUserRequest request
     ) {
         return ResponseEntity.ok(userService.update(id, request));
     }

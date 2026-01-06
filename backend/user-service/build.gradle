@@ -28,12 +28,21 @@ dependencies {
     // Spring Boot starter for building RESTful web applications
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    //Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    //JWT
+    implementation("com.auth0:java-jwt:4.5.0")
+
 // Lombok library (compile only) to reduce boilerplate code
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
 // Annotation processor required for Lombok code generation
     annotationProcessor 'org.projectlombok:lombok'
+
+    //Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 // Spring Boot starter for testing support
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

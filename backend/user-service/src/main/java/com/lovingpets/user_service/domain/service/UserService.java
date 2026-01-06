@@ -3,6 +3,7 @@ package com.lovingpets.user_service.domain.service;
 import com.lovingpets.user_service.domain.dto.CreateUserProfileRequest;
 import com.lovingpets.user_service.domain.dto.UpdateUserRequest;
 import com.lovingpets.user_service.domain.dto.UserDto;
+import com.lovingpets.user_service.domain.exception.PhoneNumberAlreadyExistsException;
 import com.lovingpets.user_service.domain.exception.UserNotFoundException;
 import com.lovingpets.user_service.domain.exception.UserProfileAlreadyExistsException;
 import com.lovingpets.user_service.persistence.entity.UserEntity;
@@ -48,6 +49,13 @@ public class UserService {
         }
 
         if (request.phoneNumber() != null) {
+
+            boolean phoneInUse = userRepository.existsByPhoneNumber(request.phoneNumber());
+
+            if (phoneInUse && !request.phoneNumber().equals(user.getPhoneNumber())) {
+                throw new PhoneNumberAlreadyExistsException(request.phoneNumber());
+            }
+
             user.updatePhoneNumber(request.phoneNumber());
         }
 
@@ -58,14 +66,19 @@ public class UserService {
         return userMapper.toDto(user);
     }
 
+    @Transactional
     public UserDto createProfile(CreateUserProfileRequest request) {
 
         if (userRepository.existsById(request.id())) {
             throw new UserProfileAlreadyExistsException(request.id());
         }
 
-        UserEntity user = userMapper.toEntity(request);
+        if (request.phoneNumber() != null &&
+                userRepository.existsByPhoneNumber(request.phoneNumber())) {
+            throw new PhoneNumberAlreadyExistsException(request.phoneNumber());
+        }
 
+        UserEntity user = userMapper.toEntity(request);
         UserEntity savedUser = userRepository.save(user);
 
         return userMapper.toDto(savedUser);
