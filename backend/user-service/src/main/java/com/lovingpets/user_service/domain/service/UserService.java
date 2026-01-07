@@ -1,5 +1,6 @@
 package com.lovingpets.user_service.domain.service;
 
+import com.lovingpets.user_service.config.JwtAuthenticationToken;
 import com.lovingpets.user_service.domain.dto.CreateUserProfileRequest;
 import com.lovingpets.user_service.domain.dto.UpdateUserRequest;
 import com.lovingpets.user_service.domain.dto.UserDto;
@@ -9,6 +10,8 @@ import com.lovingpets.user_service.domain.exception.UserProfileAlreadyExistsExce
 import com.lovingpets.user_service.persistence.entity.UserEntity;
 import com.lovingpets.user_service.persistence.mapper.UserMapper;
 import com.lovingpets.user_service.persistence.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +42,22 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
+    public UserDto getMyProfile() {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        JwtAuthenticationToken jwtAuth =
+                (JwtAuthenticationToken) authentication;
+
+        Long userId = (Long) jwtAuth.getPrincipal();
+
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+
+        return userMapper.toDto(user);
+    }
+
     @Transactional
     public UserDto update(Long id, UpdateUserRequest request) {
         UserEntity user = userRepository.findById(id)
@@ -56,6 +75,30 @@ public class UserService {
                 throw new PhoneNumberAlreadyExistsException(request.phoneNumber());
             }
 
+            user.updatePhoneNumber(request.phoneNumber());
+        }
+
+        if (request.dateOfBirth() != null) {
+            user.updateDateOfBirth(request.dateOfBirth());
+        }
+
+        return userMapper.toDto(user);
+    }
+
+    @Transactional
+    public UserDto updateSelf(Long userId, UpdateUserRequest request) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+
+        if (request.firstName() != null || request.lastName() != null) {
+            user.updateName(request.firstName(), request.lastName());
+        }
+
+        if (request.phoneNumber() != null) {
+            boolean phoneInUse = userRepository.existsByPhoneNumber(request.phoneNumber());
+            if (phoneInUse && !request.phoneNumber().equals(user.getPhoneNumber())) {
+                throw new PhoneNumberAlreadyExistsException(request.phoneNumber());
+            }
             user.updatePhoneNumber(request.phoneNumber());
         }
 
