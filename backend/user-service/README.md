@@ -25,10 +25,11 @@ It does not issue JWTs but validates tokens issued by the Auth Service to secure
 | PATCH  | /users/me     | Update authenticated user's profile        | Any authenticated user       |
 
 ## Technologies
-- Java 17+ with Spring Boot
-- Spring Security with JWT
-- PostgreSQL
-- Docker
+- Java 21
+- Spring Boot 3.5.9
+- Gradle
+- PostgreSQL (via Docker)
+- `.properties` configuration files
 
 ## Database Configuration
 - Database: `loving_users_db`

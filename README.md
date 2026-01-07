@@ -22,11 +22,13 @@ This service is responsible for user login and JWT token generation.
 ### Microservices
 
 **Implemented**
-- - Auth Service (see [Auth Service README](./backend/auth-service/README.md))
+- Auth Service (see [Auth Service README](./backend/auth-service/README.md))
 - Pet Service (see [Pet Service README](./backend/pet-service/README.md))
+- User Service (see [User Service README](./backend/user-service/README.md))
+
 
 **Planned**
-- owner-service: handles ownership records and links users to their pets
+- Appointment Service: handles scheduling and management of appointments between clients and pets
 
 ## Current Status
 
