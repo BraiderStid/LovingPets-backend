@@ -25,12 +25,6 @@ public class JwtUtil {
         }
     }
 
-    public String getEmail(String jwt) {
-        JWTVerifier verifier = JWT.require(ALGORITHM).build();
-        DecodedJWT decoded = verifier.verify(jwt);
-        return decoded.getSubject();
-    }
-
     public List<String> getRoles(String jwt) {
 
         JWTVerifier verifier = JWT.require(ALGORITHM).build();

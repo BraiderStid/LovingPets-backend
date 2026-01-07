@@ -1,4 +1,4 @@
-package com.lovingpets.pet_service.web.controller.dto;
+package com.lovingpets.pet_service.web.dto;
 
 import java.time.LocalDateTime;
 

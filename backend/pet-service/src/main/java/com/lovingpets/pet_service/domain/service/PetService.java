@@ -6,6 +6,8 @@ import com.lovingpets.pet_service.domain.exception.InvalidPetDataException;
 import com.lovingpets.pet_service.domain.exception.PetNotFoundException;
 import com.lovingpets.pet_service.domain.repository.PetRepository;
 import dev.langchain4j.agent.tool.Tool;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +18,6 @@ public class PetService {
 
     public PetService(PetRepository petRepository) {
         this.petRepository = petRepository;
-    }
-
-    public List<PetDto> getByOwnerId(Long ownerId) {
-        return petRepository.getByOwnerId(ownerId);
     }
 
     public List<PetDto> getAll(){
@@ -35,9 +33,25 @@ public class PetService {
         return pet;
     }
 
-    public PetDto save(PetDto petDto, Long userId){
+    public List<PetDto> getMyPets() {
+        Long userId = getCurrentUserId();
+        return petRepository.getByOwnerId(userId);
+    }
+
+    private Long getCurrentUserId() {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null || !(authentication.getPrincipal() instanceof Long userId)) {
+            throw new RuntimeException("User not authenticated");
+        }
+
+        return userId;
+    }
+
+    public PetDto save(PetDto petDto) {
         validatePetData(petDto);
-        return this.petRepository.save(petDto);
+        return petRepository.save(petDto);
     }
 
     public PetDto update(long id, PetUpdateDto petUpdateDto) {
@@ -50,12 +64,12 @@ public class PetService {
         return this.petRepository.update(id, petUpdateDto);
     }
 
-    public boolean delete(long id) {
+    public void delete(long id) {
         PetDto existing = this.petRepository.getById(id);
         if (existing == null) {
             throw new PetNotFoundException(id);
         }
-        return this.petRepository.delete(id);
+        this.petRepository.delete(id);
     }
 
     public String formatPetDataForAI(PetDto pet) {

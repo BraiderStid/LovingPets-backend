@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class PetController {
     private final PetService petService;
     private final LovingPetsAiService aiService;
 
-    public PetController(PetService petService, LovingPetsAiService lovingPetsAiService, LovingPetsAiService aiService) {
+    public PetController(PetService petService, LovingPetsAiService aiService) {
         this.petService = petService;
         this.aiService = aiService;
     }
@@ -52,11 +51,8 @@ public class PetController {
             summary = "Get pets of the logged-in user",
             description = "Retrieve all pets that belong to the authenticated user."
     )
-    public ResponseEntity<List<PetDto>> getPetsByOwner(Authentication authentication) {
-        // Aquí authentication.getPrincipal() devuelve el userId
-        Long userId = (Long) authentication.getPrincipal();
-        List<PetDto> pets = petService.getByOwnerId(userId);
-        return ResponseEntity.ok(pets);
+    public ResponseEntity<List<PetDto>> getMyPets() {
+        return ResponseEntity.ok(petService.getMyPets());
     }
 
     //aiSuggest init
@@ -72,14 +68,9 @@ public class PetController {
     //aiSuggest end
 
     @PostMapping
-    public ResponseEntity<PetDto> save(
-            @Valid @RequestBody PetDto petDto,
-            Authentication authentication
-    ) {
-        Long userId = (Long) authentication.getPrincipal();
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(this.petService.save(petDto, userId));
+    public ResponseEntity<PetDto> save(@Valid @RequestBody PetDto petDto) {
+        PetDto savedPet = petService.save(petDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedPet);
     }
 
     @PutMapping("/{id}")
@@ -92,7 +83,5 @@ public class PetController {
         this.petService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-
 
 }

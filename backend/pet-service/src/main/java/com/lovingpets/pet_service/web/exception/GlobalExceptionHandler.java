@@ -1,8 +1,8 @@
-package com.lovingpets.pet_service.web.controller.exception;
+package com.lovingpets.pet_service.web.exception;
 
 import com.lovingpets.pet_service.domain.exception.InvalidPetDataException;
 import com.lovingpets.pet_service.domain.exception.PetNotFoundException;
-import com.lovingpets.pet_service.web.controller.dto.ErrorResponse;
+import com.lovingpets.pet_service.web.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
