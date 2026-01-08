@@ -3,7 +3,7 @@ services:
     image: 'postgres:16'
     restart: unless-stopped
     environment:
-      - 'POSTGRES_DB=+++++'
+      - 'POSTGRES_DB=loving_appointment_db'
       - 'POSTGRES_USER=appointment_service'
       - 'POSTGRES_PASSWORD=appointment_service_pass'
     ports:
