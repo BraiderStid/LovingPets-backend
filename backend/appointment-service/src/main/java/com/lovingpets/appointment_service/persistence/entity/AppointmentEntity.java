@@ -65,4 +65,24 @@ public class AppointmentEntity {
     public void cancel() {
         this.status = AppointmentStatus.CANCELLED;
     }
+
+    public void updatePetId(Long petId) {
+        if (petId != null) {
+            this.petId = petId;
+        }
+    }
+
+    public void updateOwnerId(Long ownerId) {
+        if (ownerId != null) {
+            this.ownerId = ownerId;
+        }
+    }
+
+    public void updateNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public void updateAppointmentDateTime(LocalDateTime newDateTime) {
+        this.appointmentDateTime = newDateTime;
+    }
 }

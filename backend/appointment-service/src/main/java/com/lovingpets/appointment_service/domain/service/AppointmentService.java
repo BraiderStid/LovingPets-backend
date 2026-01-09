@@ -1,6 +1,8 @@
 package com.lovingpets.appointment_service.domain.service;
 
-import com.lovingpets.appointment_service.domain.dto.AppointmentResponse;
+import com.lovingpets.appointment_service.domain.dto.appointment.AppointmentRequest;
+import com.lovingpets.appointment_service.domain.dto.appointment.AppointmentResponse;
+import com.lovingpets.appointment_service.domain.exception.AppointmentConflictException;
 import com.lovingpets.appointment_service.domain.exception.AppointmentNotFoundException;
 import com.lovingpets.appointment_service.domain.exception.InvalidAppointmentStatusException;
 import com.lovingpets.appointment_service.domain.model.AppointmentStatus;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -68,6 +71,50 @@ public class AppointmentService {
                     "Invalid appointment status: " + status
             );
         }
+    }
+
+    @Transactional
+    public AppointmentResponse createAppointment(AppointmentRequest request) {
+        checkAppointmentConflict(request.appointmentDateTime());
+
+        AppointmentEntity appointment = new AppointmentEntity(
+                request.petId(),
+                request.ownerId(),
+                request.appointmentDateTime(),
+                request.notes()
+        );
+
+        appointmentRepository.save(appointment);
+
+        return appointmentMapper.toResponse(appointment);
+    }
+
+    private void checkAppointmentConflict(LocalDateTime dateTime) {
+        boolean conflictExists = appointmentRepository
+                .findByAppointmentDateTimeAndStatusNot(dateTime, AppointmentStatus.CANCELLED)
+                .isPresent();
+
+        if (conflictExists) {
+            throw new AppointmentConflictException();
+        }
+    }
+
+    @Transactional
+    public AppointmentResponse updateAppointment(Long id, AppointmentRequest request) {
+        AppointmentEntity appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new AppointmentNotFoundException(id));
+
+        if (request.appointmentDateTime() != null &&
+                !request.appointmentDateTime().equals(appointment.getAppointmentDateTime())) {
+            checkAppointmentConflict(request.appointmentDateTime());
+        }
+
+        appointment.updatePetId(request.petId());
+        appointment.updateOwnerId(request.ownerId());
+        appointment.updateAppointmentDateTime(request.appointmentDateTime());
+        appointment.updateNotes(request.notes());
+
+        return appointmentMapper.toResponse(appointment);
     }
 
 }

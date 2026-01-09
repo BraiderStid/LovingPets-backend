@@ -1,10 +1,12 @@
 package com.lovingpets.appointment_service.web.controller;
 
-import com.lovingpets.appointment_service.domain.dto.AppointmentResponse;
-import com.lovingpets.appointment_service.domain.dto.UpdateAppointmentStatusRequest;
+import com.lovingpets.appointment_service.domain.dto.appointment.AppointmentRequest;
+import com.lovingpets.appointment_service.domain.dto.appointment.AppointmentResponse;
+import com.lovingpets.appointment_service.domain.dto.appointment.UpdateAppointmentStatusRequest;
 import com.lovingpets.appointment_service.domain.model.AppointmentStatus;
 import com.lovingpets.appointment_service.domain.service.AppointmentService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -21,21 +23,38 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public List<AppointmentResponse> getAppointments(
+    public ResponseEntity<List<AppointmentResponse>> getAppointments(
             @RequestParam(required = false) AppointmentStatus status,
-            @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            LocalDate date
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
     ) {
-        return appointmentService.findAppointments(status, date);
+        var responses = appointmentService.findAppointments(status, date);
+        return responses.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(responses);
     }
 
     @PatchMapping("/{id}/status")
-    public AppointmentResponse updateStatus(
+    public ResponseEntity<AppointmentResponse> updateStatus(
             @PathVariable Long id,
             @RequestBody UpdateAppointmentStatusRequest request
     ) {
-        return appointmentService.updateStatus(id, request.status());
+        var response = appointmentService.updateStatus(id, request.status());
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<AppointmentResponse> updateAppointment(
+            @PathVariable Long id,
+            @RequestBody AppointmentRequest request
+    ) {
+        AppointmentResponse response = appointmentService.updateAppointment(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    public ResponseEntity<AppointmentResponse> createAppointment(@RequestBody AppointmentRequest request) {
+        AppointmentResponse response = appointmentService.createAppointment(request);
+        return ResponseEntity.status(201).body(response);
     }
 
 }

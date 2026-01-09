@@ -1,6 +1,6 @@
 package com.lovingpets.appointment_service.persistence.mapper;
 
-import com.lovingpets.appointment_service.domain.dto.AppointmentResponse;
+import com.lovingpets.appointment_service.domain.dto.appointment.AppointmentResponse;
 import com.lovingpets.appointment_service.persistence.entity.AppointmentEntity;
 import org.mapstruct.Mapper;
 

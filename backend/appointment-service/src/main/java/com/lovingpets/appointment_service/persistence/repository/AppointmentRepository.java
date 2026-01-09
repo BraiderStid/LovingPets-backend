@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface AppointmentRepository extends JpaRepository<AppointmentEntity, Long> {
 
@@ -26,6 +28,10 @@ public interface AppointmentRepository extends JpaRepository<AppointmentEntity, 
     List<AppointmentEntity> findByStatusAndDate(
             AppointmentStatus status,
             LocalDate date
+    );
+
+    Optional<AppointmentEntity> findByAppointmentDateTimeAndStatusNot(
+            LocalDateTime dateTime, AppointmentStatus status
     );
 
 }

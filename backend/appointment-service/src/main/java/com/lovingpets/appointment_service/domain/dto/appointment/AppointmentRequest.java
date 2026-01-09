@@ -1,4 +1,4 @@
-package com.lovingpets.appointment_service.domain.dto;
+package com.lovingpets.appointment_service.domain.dto.appointment;
 
 import java.time.LocalDateTime;
 

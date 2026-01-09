@@ -1,7 +1,8 @@
 package com.lovingpets.appointment_service.web.exception;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.lovingpets.appointment_service.domain.dto.ErrorResponse;
+import com.lovingpets.appointment_service.domain.dto.appointment.ErrorResponse;
+import com.lovingpets.appointment_service.domain.exception.AppointmentConflictException;
 import com.lovingpets.appointment_service.domain.exception.AppointmentNotFoundException;
 import com.lovingpets.appointment_service.domain.exception.InvalidAppointmentStatusException;
 import org.springframework.http.HttpStatus;
@@ -73,5 +74,16 @@ public class GlobalExceptionHandler {
                 ex.getMessage()
         );
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AppointmentConflictException.class)
+    public ResponseEntity<ErrorResponse> handleAppointmentConflict(AppointmentConflictException ex) {
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.CONFLICT.value(),
+                "Appointment Conflict",
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 }
