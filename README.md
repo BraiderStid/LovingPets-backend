@@ -51,6 +51,16 @@ This service is responsible for user login and JWT token generation.
 - Add API Gateway and service discovery
 - Integrate all services with Docker Compose
 
+## Postman Collection
+
+Postman collection to test the endpoints of the LovingPets project.
+
+# Files
+- LovingPets.postman_collection.json
+
+# Usage
+Import the collection into Postman and run the microservices to test the available endpoints.
+
 ## Notes
 
 - Each microservice has its own README with instructions for running, endpoints, and Docker setup.

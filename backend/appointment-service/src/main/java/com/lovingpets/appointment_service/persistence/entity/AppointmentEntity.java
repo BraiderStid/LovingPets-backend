@@ -58,10 +58,11 @@ public class AppointmentEntity {
         this.status = AppointmentStatus.ATTENDED;
     }
 
+    public void markAsPending() {
+        this.status = AppointmentStatus.PENDING;
+    }
+
     public void cancel() {
-        if (this.status == AppointmentStatus.ATTENDED) {
-            throw new IllegalStateException("An attended appointment cannot be cancelled.");
-        }
         this.status = AppointmentStatus.CANCELLED;
     }
 }

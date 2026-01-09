@@ -1,0 +1,724 @@
+{
+	"info": {
+		"_postman_id": "4a1743d4-c733-4b44-9fd2-5ae746cf103c",
+		"name": "LovingPets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43547775",
+		"_collection_link": "https://braider.postman.co/workspace/Braider's-Workspace~2647e949-ad5d-4d3c-8cc8-1377e768b145/collection/43547775-4a1743d4-c733-4b44-9fd2-5ae746cf103c?action=share&source=collection_link&creator=43547775"
+	},
+	"item": [
+		{
+			"name": "auth-service",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "b0b2389e-08d0-4671-b644-426f0f7c6fcd",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "user",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Disable User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/users/6/disable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"users",
+								"6",
+								"disable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/users/6/enable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"users",
+								"6",
+								"enable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Public Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"cliente19@example.com\",\r\n  \"password\": \"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9DTElFTlQiLCJST0xFX0FETUlOIl0sImlhdCI6MTc2NzQxMTcwNCwiZXhwIjoxNzY4NzA3NzA0fQ.Pze8U9NIxG_i3Ox0racMcH9g2qyTuQDfV9cn_enchCc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"Contraseña123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/users/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register By Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin2@lovingpets.com\",\r\n  \"password\": \"admin123\",\r\n  \"role\": \"ROLE_ADMIN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/users/admin/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"users",
+								"admin",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"1d1bdab0-4bd3-4d68-9860-cda1aadbe771\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@lovingpets.com\",\r\n    \"password\": \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pet-service",
+			"item": [
+				{
+					"name": "Get All Pets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/pets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"pets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pet By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9DTElFTlQiLCJST0xFX0FETUlOIl0sImlhdCI6MTc2Nzc1NjY3NCwiZXhwIjoxNzY5MDUyNjc0fQ.yn7sXyH1v2O8tSAfF20EvkC12YhZNDgHHhBSRr9yczA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/pets/18",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"pets",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pet Ai Suggest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/pets/2/suggest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"pets",
+								"2",
+								"suggest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Pet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9DTElFTlQiLCJST0xFX0FETUlOIl0sImlhdCI6MTc2Nzc1NjY3NCwiZXhwIjoxNzY5MDUyNjc0fQ.yn7sXyH1v2O8tSAfF20EvkC12YhZNDgHHhBSRr9yczA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ownerId\": 2,\r\n  \"name\": \"Fido\",\r\n  \"species\": \"DOG\",\r\n  \"breed\": \"LABRADOR\",\r\n  \"age\": 3,\r\n  \"weight\": 12.5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/pets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"pets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pet",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Fido Updated\",\r\n  \"species\": \"DOG\",\r\n  \"breed\": \"GOLDEN_RETRIEVER\",\r\n  \"age\": 4,\r\n  \"weight\": 14.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/pets/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"pets",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Pets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9DTElFTlQiLCJST0xFX0FETUlOIl0sImlhdCI6MTc2Nzc1NjY3NCwiZXhwIjoxNzY5MDUyNjc0fQ.yn7sXyH1v2O8tSAfF20EvkC12YhZNDgHHhBSRr9yczA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ownerId\": 1,\r\n  \"name\": \"Fido\",\r\n  \"species\": \"DOG\",\r\n  \"breed\": \"LABRADOR\",\r\n  \"age\": 3,\r\n  \"weight\": 12.5\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8083/pets/my-pets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"pets",
+								"my-pets"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user-service",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6MSwicm9sZXMiOlsiUk9MRV9DTElFTlQiLCJST0xFX0FETUlOIl0sImlhdCI6MTc2Nzc1NjY3NCwiZXhwIjoxNzY5MDUyNjc0fQ.yn7sXyH1v2O8tSAfF20EvkC12YhZNDgHHhBSRr9yczA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Carlos\",\r\n  \"lastName\": \"Ramírez\",\r\n  \"phoneNumber\": \"3015558899\",\r\n  \"dateOfBirth\": \"1998-06-22\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8085/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Profile",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRlMkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiaWF0IjoxNzY3NzY2MDg0LCJleHAiOjE3NjkwNjIwODR9.cRGIAqnCWXFlEkI6ZBV0vkgW0meWORWV7tzHnPnKssw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/users/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update My Profile",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "appointment-service",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRlMkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiaWF0IjoxNzY3NzY2MDg0LCJleHAiOjE3NjkwNjIwODR9.cRGIAqnCWXFlEkI6ZBV0vkgW0meWORWV7tzHnPnKssw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8086/appointments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pending",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRlMkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiaWF0IjoxNzY3NzY2MDg0LCJleHAiOjE3NjkwNjIwODR9.cRGIAqnCWXFlEkI6ZBV0vkgW0meWORWV7tzHnPnKssw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8086/appointments?status=PENDING",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cancelled",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8086/appointments?status=ATTENDED",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "ATTENDED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8086/appointments?date=2026-01-09",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2026-01-09"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By State & Date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8086/appointments?status=PENDING&date=2026-01-09",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"appointments"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "PENDING"
+								},
+								{
+									"key": "date",
+									"value": "2026-01-09"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
