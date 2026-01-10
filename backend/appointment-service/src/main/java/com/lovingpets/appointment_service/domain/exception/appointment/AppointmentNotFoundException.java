@@ -1,4 +1,4 @@
-package com.lovingpets.appointment_service.domain.exception;
+package com.lovingpets.appointment_service.domain.exception.appointment;
 
 public class AppointmentNotFoundException extends RuntimeException {
 

@@ -1,5 +1,6 @@
 package com.lovingpets.appointment_service.persistence.entity;
 
+import com.lovingpets.appointment_service.domain.exception.treatment.InvalidTreatmentStatusException;
 import com.lovingpets.appointment_service.domain.model.TreatmentStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -25,27 +26,26 @@ public class TreatmentEntity {
     @Column(nullable = false, length = 1000)
     private String description;
 
-    @Column(nullable = false)
-    private LocalDate startDate;
-
     private LocalDate nextReviewDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TreatmentStatus status;
 
-    public TreatmentEntity(String description, LocalDate startDate, LocalDate nextReviewDate) {
+    public TreatmentEntity(String description, LocalDate nextReviewDate) {
         this.description = description;
-        this.startDate = startDate;
         this.nextReviewDate = nextReviewDate;
         this.status = TreatmentStatus.ACTIVE;
     }
 
-    void assignMedicalRecord(MedicalRecordEntity medicalRecord) {
+    public void assignMedicalRecord(MedicalRecordEntity medicalRecord) {
         this.medicalRecord = medicalRecord;
     }
 
     public void finishTreatment() {
+        if (this.status == TreatmentStatus.FINISHED) {
+            throw new InvalidTreatmentStatusException("Treatment is already finished");
+        }
         this.status = TreatmentStatus.FINISHED;
     }
 }

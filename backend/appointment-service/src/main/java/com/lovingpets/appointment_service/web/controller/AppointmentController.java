@@ -5,6 +5,7 @@ import com.lovingpets.appointment_service.domain.dto.appointment.AppointmentResp
 import com.lovingpets.appointment_service.domain.dto.appointment.UpdateAppointmentStatusRequest;
 import com.lovingpets.appointment_service.domain.model.AppointmentStatus;
 import com.lovingpets.appointment_service.domain.service.AppointmentService;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +37,7 @@ public class AppointmentController {
     @PatchMapping("/{id}/status")
     public ResponseEntity<AppointmentResponse> updateStatus(
             @PathVariable Long id,
-            @RequestBody UpdateAppointmentStatusRequest request
+            @Valid @RequestBody UpdateAppointmentStatusRequest request
     ) {
         var response = appointmentService.updateStatus(id, request.status());
         return ResponseEntity.ok(response);
@@ -45,14 +46,14 @@ public class AppointmentController {
     @PatchMapping("/{id}")
     public ResponseEntity<AppointmentResponse> updateAppointment(
             @PathVariable Long id,
-            @RequestBody AppointmentRequest request
+            @Valid @RequestBody AppointmentRequest request
     ) {
         AppointmentResponse response = appointmentService.updateAppointment(id, request);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<AppointmentResponse> createAppointment(@RequestBody AppointmentRequest request) {
+    public ResponseEntity<AppointmentResponse> createAppointment(@Valid @RequestBody AppointmentRequest request) {
         AppointmentResponse response = appointmentService.createAppointment(request);
         return ResponseEntity.status(201).body(response);
     }

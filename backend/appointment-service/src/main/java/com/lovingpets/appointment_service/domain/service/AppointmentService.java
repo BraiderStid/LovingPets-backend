@@ -2,9 +2,9 @@ package com.lovingpets.appointment_service.domain.service;
 
 import com.lovingpets.appointment_service.domain.dto.appointment.AppointmentRequest;
 import com.lovingpets.appointment_service.domain.dto.appointment.AppointmentResponse;
-import com.lovingpets.appointment_service.domain.exception.AppointmentConflictException;
-import com.lovingpets.appointment_service.domain.exception.AppointmentNotFoundException;
-import com.lovingpets.appointment_service.domain.exception.InvalidAppointmentStatusException;
+import com.lovingpets.appointment_service.domain.exception.appointment.AppointmentConflictException;
+import com.lovingpets.appointment_service.domain.exception.appointment.AppointmentNotFoundException;
+import com.lovingpets.appointment_service.domain.exception.appointment.InvalidAppointmentStatusException;
 import com.lovingpets.appointment_service.domain.model.AppointmentStatus;
 import com.lovingpets.appointment_service.persistence.entity.AppointmentEntity;
 import com.lovingpets.appointment_service.persistence.mapper.AppointmentMapper;

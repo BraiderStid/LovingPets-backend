@@ -2,9 +2,14 @@ package com.lovingpets.appointment_service.web.exception;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.lovingpets.appointment_service.domain.dto.appointment.ErrorResponse;
-import com.lovingpets.appointment_service.domain.exception.AppointmentConflictException;
-import com.lovingpets.appointment_service.domain.exception.AppointmentNotFoundException;
-import com.lovingpets.appointment_service.domain.exception.InvalidAppointmentStatusException;
+import com.lovingpets.appointment_service.domain.exception.appointment.AppointmentConflictException;
+import com.lovingpets.appointment_service.domain.exception.appointment.AppointmentNotFoundException;
+import com.lovingpets.appointment_service.domain.exception.appointment.InvalidAppointmentStatusException;
+import com.lovingpets.appointment_service.domain.exception.medicalRecord.MedicalRecordNotFoundException;
+import com.lovingpets.appointment_service.domain.exception.treatment.InvalidTreatmentStatusException;
+import com.lovingpets.appointment_service.domain.exception.treatment.MedicalRecordHasNoTreatmentsException;
+import com.lovingpets.appointment_service.domain.exception.treatment.TreatmentNotFoundException;
+import com.lovingpets.appointment_service.domain.exception.treatment.TreatmentsNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -86,4 +91,72 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(MedicalRecordNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleMedicalRecordNotFound(
+            MedicalRecordNotFoundException ex
+    ) {
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Medical Record Not Found",
+                ex.getMessage()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(MedicalRecordHasNoTreatmentsException.class)
+    public ResponseEntity<ErrorResponse> handleNoTreatments(
+            MedicalRecordHasNoTreatmentsException ex
+    ) {
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Medical Record Has No Treatments",
+                ex.getMessage()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidTreatmentStatusException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidTreatmentStatus(
+            InvalidTreatmentStatusException ex
+    ) {
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Invalid Treatment Status",
+                ex.getMessage()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TreatmentNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTreatmentNotFound(
+            TreatmentNotFoundException ex
+    ) {
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Treatment Not Found",
+                ex.getMessage()
+        );
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TreatmentsNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTreatmentsNotFound(TreatmentsNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Treatments Not Found",
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
 }
