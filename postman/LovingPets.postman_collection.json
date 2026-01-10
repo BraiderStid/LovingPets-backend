@@ -576,147 +576,533 @@
 			"name": "appointment-service",
 			"item": [
 				{
-					"name": "Get All",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRlMkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiaWF0IjoxNzY3NzY2MDg0LCJleHAiOjE3NjkwNjIwODR9.cRGIAqnCWXFlEkI6ZBV0vkgW0meWORWV7tzHnPnKssw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8086/appointments",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8086",
-							"path": [
-								"appointments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Pending",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRlMkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiaWF0IjoxNzY3NzY2MDg0LCJleHAiOjE3NjkwNjIwODR9.cRGIAqnCWXFlEkI6ZBV0vkgW0meWORWV7tzHnPnKssw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8086/appointments?status=PENDING",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8086",
-							"path": [
-								"appointments"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "PENDING"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Cancelled",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8086/appointments?status=ATTENDED",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8086",
-							"path": [
-								"appointments"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "ATTENDED"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get By Date",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8086/appointments?date=2026-01-09",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8086",
-							"path": [
-								"appointments"
-							],
-							"query": [
-								{
-									"key": "date",
-									"value": "2026-01-09"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get By State & Date",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8086/appointments?status=PENDING&date=2026-01-09",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8086",
-							"path": [
-								"appointments"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "PENDING"
+					"name": "Appointment Request",
+					"item": [
+						{
+							"name": "Get All",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRlMkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiaWF0IjoxNzY3NzY2MDg0LCJleHAiOjE3NjkwNjIwODR9.cRGIAqnCWXFlEkI6ZBV0vkgW0meWORWV7tzHnPnKssw",
+											"type": "string"
+										}
+									]
 								},
-								{
-									"key": "date",
-									"value": "2026-01-09"
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/appointments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"appointments"
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "Get Pending",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRlMkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiaWF0IjoxNzY3NzY2MDg0LCJleHAiOjE3NjkwNjIwODR9.cRGIAqnCWXFlEkI6ZBV0vkgW0meWORWV7tzHnPnKssw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/appointments?status=PENDING",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"appointments"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "PENDING"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Cancelled",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/appointments?status=ATTENDED",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"appointments"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "ATTENDED"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/appointments?date=2026-01-09",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"appointments"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "2026-01-09"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By State & Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/appointments?status=PENDING&date=2026-01-09",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"appointments"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "PENDING"
+										},
+										{
+											"key": "date",
+											"value": "2026-01-09"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Status",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"ATTENDED\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/appointments/1/status",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"appointments",
+										"1",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Appointment",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"petId\": 5,\r\n  \"ownerId\": 12,\r\n  \"appointmentDateTime\": \"2026-01-15T14:30:00\",\r\n  \"notes\": \"Bring vaccination record updated\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/appointments/8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"appointments",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Appointment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"petId\": 7,\r\n  \"ownerId\": 7,\r\n  \"appointmentDateTime\": \"2026-01-15T09:40:00\",\r\n  \"notes\": \"Annual health check for the pet\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/appointments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"appointments"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Medical Record Request",
+					"item": [
+						{
+							"name": "Get All",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"petId\": 5,\r\n  \"ownerId\": 12,\r\n  \"appointmentDateTime\": \"2026-01-15T14:30:00\",\r\n  \"notes\": \"Bring vaccination record updated\"\r\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8086/medical-records",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"medical-records"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Pet Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/medical-records?petId=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"medical-records"
+									],
+									"query": [
+										{
+											"key": "petId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Owner Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/medical-records?ownerId=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"medical-records"
+									],
+									"query": [
+										{
+											"key": "ownerId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/medical-records?date=2026-01-09",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"medical-records"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "2026-01-09"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By Pet Id & Date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/medical-records?petId=2&date=2026-01-09",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"medical-records"
+									],
+									"query": [
+										{
+											"key": "petId",
+											"value": "2"
+										},
+										{
+											"key": "date",
+											"value": "2026-01-09"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Medical Record",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"appointmentId\": 8,\r\n  \"employeeId\": 5,\r\n  \"diagnosis\": \"Otitis externa leve\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/medical-records",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"medical-records"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Treatment Request",
+					"item": [
+						{
+							"name": "Get All Treatments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/treatments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"treatments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Treatment By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/treatments?treatmentId=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"treatments"
+									],
+									"query": [
+										{
+											"key": "treatmentId",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Treatments Of a Medical Record",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbGllbnRlMkBsb3ZpbmdwZXRzLmNvbSIsImlzcyI6ImxvdmluZy1wZXRzLWF1dGgtc2VydmljZSIsInVzZXJJZCI6Mywicm9sZXMiOlsiUk9MRV9DTElFTlQiXSwiaWF0IjoxNzY3NzY2MDg0LCJleHAiOjE3NjkwNjIwODR9.cRGIAqnCWXFlEkI6ZBV0vkgW0meWORWV7tzHnPnKssw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/medical-records/3/treatments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"medical-records",
+										"3",
+										"treatments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Treatment",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": \"Antibiotic treatment for post-surgery recovery\",\r\n  \"nextReviewDate\": \"2026-01-20\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8086/medical-records/3/treatments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"medical-records",
+										"3",
+										"treatments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Finish Treatment",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8086/treatments/3/finish",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"treatments",
+										"3",
+										"finish"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
