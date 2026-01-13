@@ -18,6 +18,20 @@ control via JWTs issued by the Auth Service.
 This service handles all appointment, medical record, and treatment operations.
 It does not issue JWTs, but validates tokens issued by the Auth Service to secure endpoints and enforce role-based access.
 
+## Authentication & Authorization
+
+This service uses **JWT-based authentication**.
+
+After a successful login in auth-service, a JWT token is issued.
+To access protected endpoints, the client must include the token
+in the `Authorization` header using the **Bearer Token** scheme.
+
+Example:
+Authorization: Bearer <JWT_TOKEN>
+
+The authentication type must be set to **Bearer Token** when calling secured endpoints.
+
+
 ### Appointment Endpoints
 
 | Method | Endpoint                  | Description                | Roles           | Filters      |

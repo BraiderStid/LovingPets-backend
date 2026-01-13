@@ -15,17 +15,35 @@ This service is responsible for user login and JWT token generation.
 
 1. The client authenticates using the auth-service.
 2. The auth-service returns a JWT access token.
-3. The client includes the token in the Authorization header
-   when calling protected endpoints in other microservices
-   such as the Pet Service.
+3. The client must include this token in the `Authorization` header
+when calling protected endpoints in this or in others microservices.
 
-### Microservices
+## Authentication & Demo Users
+
+This project uses JWT-based authentication with role-based access control.
+
+For demonstration purposes, the database is initialized with predefined users
+using `data.sql`.
+
+### Preloaded demo users (local environment only)
+
+⚠️ These credentials are for demonstration purposes only.
+
+| Role     | Email                     | Password     |
+|----------|---------------------------|--------------|
+| ADMIN    | admin@lovingpets.com      | admin123     |
+| CLIENT   | cliente1@lovingpets.com   | cliente123   |
+| EMPLOYEE | empleado1@lovingpets.com  | empleado123  |
+
+Note: The user must be 
+
+## Microservices
 
 **Implemented**
 - Auth Service (see [Auth Service README](./backend/auth-service/README.md))
 - Pet Service (see [Pet Service README](./backend/pet-service/README.md))
 - User Service (see [User Service README](./backend/user-service/README.md))
-
+- Appointment Service (see [Appointment Service README](./backend/appointment-service/README.md))
 
 **Planned**
 - Appointment Service: handles scheduling and management of appointments between clients and pets

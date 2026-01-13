@@ -13,6 +13,19 @@ User Service is a microservice in the LovingPets project responsible for managin
 This service handles all user-related operations and data.  
 It does not issue JWTs but validates tokens issued by the Auth Service to secure endpoints and enforce role-based access.
 
+## Authentication & Authorization
+
+This service uses **JWT-based authentication**.
+
+After a successful login in auth-service, a JWT token is issued.
+To access protected endpoints, the client must include the token
+in the `Authorization` header using the **Bearer Token** scheme.
+
+Example:
+Authorization: Bearer <JWT_TOKEN>
+
+The authentication type must be set to **Bearer Token** when calling secured endpoints.
+
 ## API Endpoints
 
 | Method | Endpoint      | Description                               | Roles                        |

@@ -16,6 +16,19 @@ This service acts as the authentication authority.
 Other microservices trust the JWT tokens issued by this service
 to authorize protected endpoints.
 
+## Authentication & Authorization
+
+This service uses **JWT-based authentication**.
+
+After a successful login, a JWT token is issued.
+To access protected endpoints, the client must include the token
+in the `Authorization` header using the **Bearer Token** scheme.
+
+Example:
+Authorization: Bearer <JWT_TOKEN>
+
+The authentication type must be set to **Bearer Token** when calling secured endpoints.
+
 ## API Endpoints
 
 | Method | Endpoint        | Description                      | Roles           |
