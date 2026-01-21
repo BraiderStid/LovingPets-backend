@@ -75,6 +75,22 @@ volumes:
   auth_pgdata:
     driver: local 
 ```
+
+## Configuration
+
+### application.properties
+spring.profiles.active=dev
+spring.application.name=auth-service
+spring.config.import=optional:configserver:http://localhost:8888
+
+### Dev Profile
+- Stored in LovingPets\config-repo
+- Expected properties:
+  server.port
+  spring.datasource.url
+  spring.datasource.username
+  spring.datasource.password
+
 ## Running the Service
 
 > Docker is required because PostgreSQL runs in a Docker container.

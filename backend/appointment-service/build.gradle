@@ -18,6 +18,10 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+    set('springCloudVersion', "2025.0.1")
+}
+
 dependencies {
 // Spring Boot Web Starter for building web applications
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -33,6 +37,9 @@ dependencies {
 
 // JWT library
     implementation("com.auth0:java-jwt:4.5.0")
+
+//Config Client
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
 //MapStruct
     implementation 'org.mapstruct:mapstruct:1.6.3'
@@ -63,6 +70,12 @@ dependencies {
 // Lombok annotation processor (generates code during compilation)
     annotationProcessor 'org.projectlombok:lombok'
 
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 tasks.named('test') {

@@ -42,8 +42,6 @@ The authentication type must be set to **Bearer Token** when calling secured end
 | DELETE | /pets/{id}         | Delete a pet                                  | ADMIN, EMPLOYEE        |
 | GET    | /pets/{id}/suggest | Generate AI-based suggestions for a pet       | Any authenticated user |
 
-
-
 ## Technologies
 
 - Java 17+ with Spring Boot
@@ -83,6 +81,23 @@ volumes:
   pgdata:
     driver: local
 ```
+
+## Configuration
+
+### application.properties
+spring.profiles.active=dev
+spring.application.name=pet-service
+spring.config.import=optional:configserver:http://localhost:8888
+langchain4j.open-ai.chat-model.model-name=gpt-4o-mini
+
+### Dev Profile
+- Stored in LovingPets\config-repo
+- Expected properties:
+  server.port
+  spring.datasource.url
+  spring.datasource.username
+  spring.datasource.password
+
 ## Running the Service
 
 > Docker is required because PostgreSQL runs in a Docker container.

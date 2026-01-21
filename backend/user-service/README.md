@@ -70,17 +70,20 @@ volumes:
     driver: local
 ```
 
-## application-dev.properties
-server.port=8085
-spring.datasource.driver-class-name=org.postgresql.Driver
-spring.datasource.url=jdbc:postgresql://localhost:5435/loving_users_db
-spring.datasource.username=user_service
-spring.datasource.password=user_service_pass
-spring.jpa.hibernate.ddl-auto=update
-spring.sql.init.mode=always
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-logging.level.org.springframework.security.web=DEBUG
+## Configuration
+
+### application.properties
+spring.profiles.active=dev
+spring.config.import=optional:configserver:http://localhost:8888
+spring.application.name=user-service
+
+### Dev Profile 
+- Stored in LovingPets\config-repo
+- Expected properties:
+  server.port
+  spring.datasource.url
+  spring.datasource.username
+  spring.datasource.password
 
 ## Running the Service
 -Docker is required because PostgreSQL runs in a container. 

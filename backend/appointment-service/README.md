@@ -101,30 +101,21 @@ volumes:
 
 ```
 
-## application-dev.properties
+## Configuration
 
-server.port=8086
+### application.properties
+spring.profiles.active=dev
+spring.application.name=appointment-service
+spring.config.import=optional:configserver:http://localhost:8888
+langchain4j.open-ai.chat-model.model-name=gpt-4o-mini
 
-### OpenAI API key for LangChain (demo)
-langchain4j.open-ai.chat-model.api-key=demo
-
-# Spring JPA Driver
-spring.datasource.driver-class-name=org.postgresql.Driver
-spring.datasource.url=jdbc:postgresql://localhost:5436/loving_appointment_db
-spring.datasource.username=appointment_service
-spring.datasource.password=appointment_service_pass
-
-spring.jpa.hibernate.ddl-auto=update
-spring.sql.init.mode=always
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-
-### Logging
-logging.level.dev.langchain4j=DEBUG
-logging.level.dev.ai4j.openai4j=DEBUG
-langchain4j.open-ai-chat-model.log-requests=true
-langchain4j.open-ai-chat-model.log-responses=true
-logging.level.org.springframework.security.web=DEBUG
+### Dev Profile
+- Stored in LovingPets\config-repo
+- Expected properties:
+  server.port
+  spring.datasource.url
+  spring.datasource.username
+  spring.datasource.password
 
 ## Running the Service
 

@@ -10,13 +10,15 @@ Each microservice is independent and will be connected later through API Gateway
 
 ## Authentication Flow
 
-Authentication is handled by a dedicated auth-service.
-This service is responsible for user login and JWT token generation.
+Authentication is handled by the dedicated **auth-service**, which generates JWT tokens.  
 
-1. The client authenticates using the auth-service.
-2. The auth-service returns a JWT access token.
-3. The client must include this token in the `Authorization` header
-when calling protected endpoints in this or in others microservices.
+**Important:** The **Config Server** must be running first to provide the `dev` profile configuration before starting any microservice.  
+
+1. Start the **Config Server** to load the `dev` properties.  
+2. Start the **auth-service**.  
+3. The client authenticates using the auth-service.  
+4. The auth-service returns a JWT access token.  
+5. Include this token in the `Authorization` header when calling protected endpoints in any microservice.
 
 ## Authentication & Demo Users
 
@@ -44,6 +46,7 @@ Note: The user must be
 - Pet Service (see [Pet Service README](./backend/pet-service/README.md))
 - User Service (see [User Service README](./backend/user-service/README.md))
 - Appointment Service (see [Appointment Service README](./backend/appointment-service/README.md))
+- Config Server (see [Config Server README](./backend/lovingpets-config-server/README.md))
 
 **Planned**
 - Appointment Service: handles scheduling and management of appointments between clients and pets
@@ -64,20 +67,18 @@ Note: The user must be
 
 ## Roadmap / Next Steps
 
-- Implement Auth Service with JWT authentication
-- Implement User Service
-- Add API Gateway and service discovery
-- Integrate all services with Docker Compose
+- Enable Feign Clients for inter-service calls
+- Integrate Eureka for service discovery
+- Set up API Gateway for routing and auth
+
 
 ## Postman Collection
 
 Postman collection to test the endpoints of the LovingPets project.
 
-# Files
-- LovingPets.postman_collection.json
+- File location: LovingPets\postman\LovingPets.postman_collection.json
 
-# Usage
-Import the collection into Postman and run the microservices to test the available endpoints.
+- (see [Postman Collection README](./postman/README.md))
 
 ## Notes
 
