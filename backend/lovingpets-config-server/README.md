@@ -33,3 +33,4 @@ spring.profiles.active=native
    Pet Service dev config: http://localhost:8888/pet-service/dev
    Appointment Service dev config: http://localhost:8888/appointment-service/dev
    User Service dev config: http://localhost:8888/user-service/dev
+   Eureka Server dev config http://localhost:8888/lovingpets-eureka-server/dev

@@ -37,8 +37,6 @@ using `data.sql`.
 | CLIENT   | cliente1@lovingpets.com   | cliente123   |
 | EMPLOYEE | empleado1@lovingpets.com  | empleado123  |
 
-Note: The user must be 
-
 ## Microservices
 
 **Implemented**
@@ -47,13 +45,12 @@ Note: The user must be
 - User Service (see [User Service README](./backend/user-service/README.md))
 - Appointment Service (see [Appointment Service README](./backend/appointment-service/README.md))
 - Config Server (see [Config Server README](./backend/lovingpets-config-server/README.md))
+- Eureka Server (see [Eureka Server README](./backend/lovingpets-eureka-server/README.md))
 
 **Planned**
 - Appointment Service: handles scheduling and management of appointments between clients and pets
 
 ## Current Status
-
-- Only the Pet Service is implemented so far.
 - Each service has its own Docker container and database (PostgreSQL).
 - Microservices follow clean architecture principles and expose REST APIs.
 
@@ -67,10 +64,8 @@ Note: The user must be
 
 ## Roadmap / Next Steps
 
-- Enable Feign Clients for inter-service calls
-- Integrate Eureka for service discovery
 - Set up API Gateway for routing and auth
-
+- Create product-service & order-service
 
 ## Postman Collection
 

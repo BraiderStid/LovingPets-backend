@@ -1,5 +1,6 @@
 package com.lovingpets.pet_service.web.exception;
 
+import com.lovingpets.pet_service.domain.exception.AccountNotFoundException;
 import com.lovingpets.pet_service.domain.exception.InvalidPetDataException;
 import com.lovingpets.pet_service.domain.exception.PetNotFoundException;
 import com.lovingpets.pet_service.web.dto.ErrorResponse;
@@ -103,5 +104,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(error);
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleAccountNotFound(
+            AccountNotFoundException ex,
+            HttpServletRequest request
+    ) {
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Account not found",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

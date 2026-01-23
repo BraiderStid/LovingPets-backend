@@ -45,6 +45,12 @@ dependencies {
 //Config Client
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
+//Eureka Client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+//OpenFeign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
 // Annotation processor required for Lombok code generation
     annotationProcessor 'org.projectlombok:lombok'
 

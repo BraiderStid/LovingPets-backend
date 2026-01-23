@@ -41,6 +41,12 @@ dependencies {
     //Config Client
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
+    //Eureka Client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    //OpenFeign
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
     // JUnit Platform Launcher
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 

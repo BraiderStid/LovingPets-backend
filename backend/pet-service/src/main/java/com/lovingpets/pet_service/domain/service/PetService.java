@@ -1,11 +1,15 @@
 package com.lovingpets.pet_service.domain.service;
 
+import com.lovingpets.pet_service.client.AuthClient;
+import com.lovingpets.pet_service.client.dto.UserResponse;
 import com.lovingpets.pet_service.domain.dto.PetDto;
 import com.lovingpets.pet_service.domain.dto.PetUpdateDto;
+import com.lovingpets.pet_service.domain.exception.AccountNotFoundException;
 import com.lovingpets.pet_service.domain.exception.InvalidPetDataException;
 import com.lovingpets.pet_service.domain.exception.PetNotFoundException;
 import com.lovingpets.pet_service.domain.repository.PetRepository;
 import dev.langchain4j.agent.tool.Tool;
+import feign.FeignException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,9 +19,11 @@ import java.util.List;
 @Service
 public class PetService {
     private final PetRepository petRepository;
+    private final AuthClient authClient;
 
-    public PetService(PetRepository petRepository) {
+    public PetService(PetRepository petRepository, AuthClient authClient) {
         this.petRepository = petRepository;
+        this.authClient = authClient;
     }
 
     public List<PetDto> getAll(){
@@ -50,6 +56,7 @@ public class PetService {
     }
 
     public PetDto save(PetDto petDto) {
+        validateOwnerExists(petDto.ownerId());
         validatePetData(petDto);
         return petRepository.save(petDto);
     }
@@ -82,6 +89,19 @@ public class PetService {
                 pet.weight(),
                 pet.ownerId()
         );
+    }
+
+    private void validateOwnerExists(Long ownerId) {
+        try {
+            UserResponse user = authClient.getUserById(ownerId);
+
+            if (user == null) {
+                throw new AccountNotFoundException(ownerId);
+            }
+
+        } catch (FeignException.NotFound ex) {
+            throw new AccountNotFoundException(ownerId);
+        }
     }
 
     private void validatePetData(PetDto petDto) {

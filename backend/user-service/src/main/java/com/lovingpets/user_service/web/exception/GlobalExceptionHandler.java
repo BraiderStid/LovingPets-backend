@@ -1,6 +1,7 @@
 package com.lovingpets.user_service.web.exception;
 
 import com.lovingpets.user_service.domain.dto.ApiError;
+import com.lovingpets.user_service.domain.exception.AccountNotFoundException;
 import com.lovingpets.user_service.domain.exception.PhoneNumberAlreadyExistsException;
 import com.lovingpets.user_service.domain.exception.UserNotFoundException;
 import com.lovingpets.user_service.domain.exception.UserProfileAlreadyExistsException;
@@ -44,6 +45,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ApiError.of(
                         HttpStatus.CONFLICT.value(),
+                        ex.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<ApiError> handleAccountNotFound(AccountNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiError.of(
+                        HttpStatus.BAD_REQUEST.value(),
                         ex.getMessage()
                 ));
     }

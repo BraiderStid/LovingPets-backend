@@ -41,6 +41,9 @@ dependencies {
     //Spring Client
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
+    //Eureka Client
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
     // JPA starter
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 

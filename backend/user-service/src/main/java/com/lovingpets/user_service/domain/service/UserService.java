@@ -1,15 +1,19 @@
 package com.lovingpets.user_service.domain.service;
 
+import com.lovingpets.user_service.client.AuthClient;
+import com.lovingpets.user_service.client.dto.UserResponse;
 import com.lovingpets.user_service.config.JwtAuthenticationToken;
 import com.lovingpets.user_service.domain.dto.CreateUserProfileRequest;
 import com.lovingpets.user_service.domain.dto.UpdateUserRequest;
 import com.lovingpets.user_service.domain.dto.UserDto;
+import com.lovingpets.user_service.domain.exception.AccountNotFoundException;
 import com.lovingpets.user_service.domain.exception.PhoneNumberAlreadyExistsException;
 import com.lovingpets.user_service.domain.exception.UserNotFoundException;
 import com.lovingpets.user_service.domain.exception.UserProfileAlreadyExistsException;
 import com.lovingpets.user_service.persistence.entity.UserEntity;
 import com.lovingpets.user_service.persistence.mapper.UserMapper;
 import com.lovingpets.user_service.persistence.repository.UserRepository;
+import feign.FeignException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -23,11 +27,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final AuthClient authClient;
 
     public UserService(UserRepository userRepository,
-                       UserMapper userMapper) {
+                       UserMapper userMapper, AuthClient authClient) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.authClient = authClient;
     }
 
     public List<UserDto> getAll() {
@@ -119,6 +125,17 @@ public class UserService {
         if (request.phoneNumber() != null &&
                 userRepository.existsByPhoneNumber(request.phoneNumber())) {
             throw new PhoneNumberAlreadyExistsException(request.phoneNumber());
+        }
+
+        UserResponse userResponse;
+        try {
+            userResponse = authClient.getUserById(request.id());
+        } catch (FeignException.NotFound ex) {
+            throw new AccountNotFoundException(request.id());
+        }
+
+        if (userResponse == null) {
+            throw new AccountNotFoundException(request.id());
         }
 
         UserEntity user = userMapper.toEntity(request);
